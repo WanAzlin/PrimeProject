@@ -497,22 +497,97 @@
 
 // const styles = StyleSheet.create({});
 //====================== Flexbox ============================= //flexDirection: 'row-reverse', flexDirection: 'column-reverse'
-import {View, Text, SafeAreaView} from 'react-native';
-import React from 'react';
+// import {View, Text, SafeAreaView} from 'react-native';
+// import React from 'react';
 
+// const App = () => {
+//   return (
+//     <View
+//       style={{
+//         flex: 1,
+//         justifyContent: 'space-around',
+//         flexDirection: 'row',
+//         alignItems: 'baseline',
+//       }}>
+//       <View style={{backgroundColor: 'yellow', width: 50, height: 50}} />
+//       <View style={{backgroundColor: 'green', width: 50, height: 50}} />
+//       <View style={{backgroundColor: 'black', height: 50, width: 50}} />
+//     </View>
+//   );
+// };
+
+// export default App;
+//==================== Exercise Udemy ========================
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TextInput,
+  Button,
+  Pressable,
+  Switch,
+  SafeAreaView,
+} from 'react-native';
+import React, {useState} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faCheck} from '@fortawesome/free-solid-svg-icons';
 const App = () => {
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const isDisabled = name.length === 0 || age.length < 8;
+  const [ShouldKeepLoggedIn, setShouldKeepLoggedIn] = useState(true);
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: 'red',
-        flexDirection: 'column-reverse',
-      }}>
-      <View style={{flex: 1, backgroundColor: 'yellow', width: 200}} />
-      <View style={{flex: 2, backgroundColor: 'green', width: 200}} />
-      <View style={{flex: 2, backgroundColor: 'black'}} />
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        <TextInput
+          value={name}
+          style={{borderWidth: 1, borderRadius: 4, padding: 10}}
+          placeholder="Please enter your name here"
+          onChangeText={value => {
+            setName(value);
+          }}
+        />
+
+        <TextInput
+          value={age}
+          secureTextEntry={true}
+          style={{borderWidth: 1, borderRadius: 4, padding: 10}}
+          placeholder="Please enter your age here"
+          onChangeText={value => {
+            setAge(value);
+          }}
+        />
+        <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
+          <Switch
+            value={ShouldKeepLoggedIn}
+            onValueChange={value => setShouldKeepLoggedIn(value)}
+          />
+          <Text>Keep me logged in</Text>
+        </View>
+        <Pressable
+          style={{backgroundColor: isDisabled ? 'grey' : 'black'}}
+          disabled={isDisabled}
+          onPress={() => console.log(name, age, ShouldKeepLoggedIn)}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={{color: 'white', textAlign: 'center', padding: 10}}>
+              {' '}
+              Submit
+            </Text>
+            <FontAwesomeIcon icon={faCheck} style={{color: 'white'}} />
+          </View>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 export default App;
+
+const styles = StyleSheet.create({});
